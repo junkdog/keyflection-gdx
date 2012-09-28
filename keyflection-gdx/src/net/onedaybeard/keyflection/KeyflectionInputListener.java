@@ -15,13 +15,8 @@
 */ 
 package net.onedaybeard.keyflection;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.utils.IntArray;
-import com.badlogic.gdx.utils.LongMap;
 
 /**
  * InputListener that intercepts public methods declared in the {@link CommandController}.
@@ -32,15 +27,11 @@ import com.badlogic.gdx.utils.LongMap;
  */
 public class KeyflectionInputListener extends InputListener
 {
-	private final IntArray pressedKeys;
-	private final LongMap<Method> shortcuts;
-	private final CommandController controller;
+	private final KeyData data;
 
 	public KeyflectionInputListener(CommandController controller)
 	{
-		pressedKeys = new IntArray(false, 7);
-		shortcuts = ShortcutConfigurator.create(controller);
-		this.controller = controller;
+		data = new KeyData(controller);
 	}
 	
 	/**
@@ -51,32 +42,7 @@ public class KeyflectionInputListener extends InputListener
 	@Override
 	public boolean keyDown(InputEvent event, int keycode)
 	{
-		pressedKeys.add(keycode);
-		long keyCombination = KeyPacker.pack(pressedKeys.toArray());
-		boolean consumed = shortcuts.containsKey(keyCombination);
-		
-		if (consumed)
-		{
-			try
-			{
-				shortcuts.get(keyCombination).invoke(controller);
-			}
-			catch (IllegalArgumentException e)
-			{
-				throw new RuntimeException(e);
-			}
-			catch (IllegalAccessException e)
-			{
-				throw new RuntimeException(
-					"Is the CommandController's visibility too restrictive?", e);
-			}
-			catch (InvocationTargetException e)
-			{
-				throw new RuntimeException(e);
-			}
-		}
-		
-		return consumed;
+		return data.keyDown(keycode);
 	}
 	
 	/**
@@ -88,7 +54,6 @@ public class KeyflectionInputListener extends InputListener
 	@Override
 	public boolean keyUp(InputEvent event, int keycode)
 	{
-		pressedKeys.removeValue(keycode);
-		return false;
+		return data.keyDown(keycode);
 	}
 }

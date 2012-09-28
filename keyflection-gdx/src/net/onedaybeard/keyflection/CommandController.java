@@ -17,6 +17,8 @@ package net.onedaybeard.keyflection;
 
 /**
  * Marker interface, more of a convenience thing.
+ * <p/>
+ * Class should have at least have protected visibility - public for methods.
  */
 public interface CommandController
 {
