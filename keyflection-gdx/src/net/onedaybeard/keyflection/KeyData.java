@@ -51,6 +51,7 @@ final class KeyData
 	
 	boolean keyUp(int keycode)
 	{
-		return pressedKeys.removeValue(keycode);
+		pressedKeys.removeValue(keycode);
+		return false;
 	}
 }

@@ -54,6 +54,6 @@ public class KeyflectionInputListener extends InputListener
 	@Override
 	public boolean keyUp(InputEvent event, int keycode)
 	{
-		return data.keyDown(keycode);
+		return data.keyUp(keycode);
 	}
 }
