@@ -11,6 +11,9 @@ __keyflection__ is a simple annotation-based API for managing shortcuts for soft
 - Write a key settings file.
 - Default key combinations are overridden in the presence of a key settings file.
 
+## Prerequisites
+libGDX [nightlies](http://libgdx.badlogicgames.com/nightlies/), until the next version comes out.
+
 ## Usage
 
 
