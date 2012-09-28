@@ -83,7 +83,6 @@ public class DemoUI implements ApplicationListener
 		stageActions = new StageKeys();
 
 		stage = new Stage(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
-		stage.addListener(new KeyflectionInputListener(stageActions));
 
 		float loc = (NUM_SPRITES * (32 + SPACING) - SPACING) / 2;
 		for (int i = 0; i < NUM_GROUPS; i++)
@@ -100,6 +99,7 @@ public class DemoUI implements ApplicationListener
 		uiTexture = new Texture(Gdx.files.internal("data/ui.png"));
 		uiTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		ui = new Stage(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
+		ui.addListener(new KeyflectionInputListener(stageActions));
 
 		Image blend = new Image(new TextureRegion(uiTexture, 0, 0, 64, 32));
 		blend.setAlign(Align.center);
@@ -285,22 +285,6 @@ public class DemoUI implements ApplicationListener
 		
 	}
 	
-	class StageListener extends KeyflectionInputListener
-	{
-		public StageListener(CommandController controller)
-		{
-			super(controller);
-		}
-
-		@Override
-		public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
-		{
-			Actor actor = event.getRelatedActor();
-			System.out.println(actor);
-			return false;
-		}
-	}
-
 	protected class StageKeys implements CommandController
 	{
 		@Command(name = "toggle UI", description = "hides/shows the UI", bindings =

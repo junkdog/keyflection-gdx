@@ -52,7 +52,7 @@ final class KeyPacker
 		unpacked.clear();
 		for (int i = 0; DATA_BYTES > i; i++)
 		{
-			int keycode = (int)(keys >> (i * 8)) & 0xff;
+			int keycode = (int)(keys >> (8 * i)) & 0xff;
 			if (keycode > 0)
 				unpacked.add(keycode);
 			else
