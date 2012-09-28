@@ -65,15 +65,16 @@ public class DemoUI implements ApplicationListener
 	float scale = 1;
 	float vScale = 1;
 	Label fps;
+	Label hint;
 
-	private Color color;
+	private Color background;
 	private boolean drawHud = true;
 	private StageKeys stageActions;
 
 	@Override
 	public void create()
 	{
-		color = new Color(0.2f, 0.2f, 0.2f, 1f);
+		background = new Color(0.2f, 0.2f, 0.2f, 1f);
 		
 		texture = new Texture(Gdx.files.internal("data/badlogicsmall.jpg"));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -143,6 +144,11 @@ public class DemoUI implements ApplicationListener
 		ui.addActor(rotate);
 		ui.addActor(scale);
 
+		hint = new Label("See console output for shortcuts (hint: s, r, b, Shift-r, h, ESC).", new Label.LabelStyle(font, Color.WHITE));
+		hint.setPosition(10, 45);
+		hint.setColor(0, 1, 0, 1);
+		ui.addActor(hint);
+		
 		fps = new Label("fps: 0", new Label.LabelStyle(font, Color.WHITE));
 		fps.setPosition(10, 30);
 		fps.setColor(0, 1, 0, 1);
@@ -178,7 +184,7 @@ public class DemoUI implements ApplicationListener
 	public void render()
 	{
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		Gdx.gl.glClearColor(color.r, color.g, color.b, 1);
+		Gdx.gl.glClearColor(background.r, background.g, background.b, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		if (Gdx.input.isTouched())
@@ -243,9 +249,12 @@ public class DemoUI implements ApplicationListener
 		}
 		renderer.end();
 
-		fps.setText("fps: " + Gdx.graphics.getFramesPerSecond() + ", actors " + images.size + ", groups " +
-			actors.size);
-		ui.draw();
+		if (drawHud)
+		{
+			fps.setText("fps: " + Gdx.graphics.getFramesPerSecond() + ", actors " + images.size + ", groups " +
+				actors.size);
+			ui.draw();
+		}
 	}
 
 	@Override
@@ -306,9 +315,9 @@ public class DemoUI implements ApplicationListener
 			@Shortcut({Keys.SHIFT_RIGHT, Keys.R})})
 		public void randomizeBackground()
 		{
-			color.r = MathUtils.random(1f);
-			color.g = MathUtils.random(1f);
-			color.b = MathUtils.random(1f);
+			background.r = MathUtils.random(1f);
+			background.g = MathUtils.random(1f);
+			background.b = MathUtils.random(1f);
 		}
 		
 		@Command(name = "toggle scaling", description = "toggles sprite scaling", bindings = 
