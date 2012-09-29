@@ -37,4 +37,9 @@ public enum CommandManager
 	{
 		commands.add(new BoundCommand(method));
 	}
+
+	public Array<BoundCommand> getCommands()
+	{
+		return commands;
+	}
 }
