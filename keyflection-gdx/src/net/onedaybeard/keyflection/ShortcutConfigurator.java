@@ -19,6 +19,9 @@ import java.lang.reflect.Method;
 
 import com.badlogic.gdx.utils.LongMap;
 
+import net.onedaybeard.keyflection.annotation.Command;
+import net.onedaybeard.keyflection.annotation.Shortcut;
+
 final class ShortcutConfigurator
 {
 	private ShortcutConfigurator()

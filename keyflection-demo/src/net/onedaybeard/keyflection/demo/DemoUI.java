@@ -40,11 +40,11 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.Scaling;
 
-import net.onedaybeard.keyflection.Command;
 import net.onedaybeard.keyflection.CommandController;
 import net.onedaybeard.keyflection.KeyflectionInputListener;
 import net.onedaybeard.keyflection.KeyflectionInputProcessor;
-import net.onedaybeard.keyflection.Shortcut;
+import net.onedaybeard.keyflection.annotation.Command;
+import net.onedaybeard.keyflection.annotation.Shortcut;
 
 
 public class DemoUI implements ApplicationListener
