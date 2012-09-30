@@ -1,7 +1,7 @@
 # keyflection-gdx
 __keyflection__ is a simple annotation-based API for managing shortcuts for software
 built with [libGDX](http://libgdx.badlogicgames.com/). It is primarily conceived for
-making UI-based applications - game editors and such.
+making keyboard heavy applications - game editors, strategy games and such.
 
 
 ## Features
@@ -11,9 +11,6 @@ making UI-based applications - game editors and such.
 
 
 ## TODO
-- Devise a means of obtaining a list of all commands/shortcut combos (currently,
-there is the [KeyFormatter](https://github.com/junkdog/keyflection-gdx/blob/master/keyflection-gdx/src/net/onedaybeard/keyflection/KeyFormatter.java)
-class, but it is not hooked into much yet).
 - Write key settings file.
 - Override default key combinations in the presence of a key settings file.
 
@@ -23,7 +20,7 @@ libGDX [nightlies](http://libgdx.badlogicgames.com/nightlies/), until the next
 version comes out.
 
 ## Usage
-#### Declare a CommandController:
+#### 1: Declare a CommandController:
 
 ```java
 public class DemoUI
@@ -51,7 +48,7 @@ public class DemoUI
     }
 }
 ```
-#### Wrap it inside an KeyflectionInputListener:
+#### 2: Wrap it inside an KeyflectionInputListener:
 
 ```java
 public class DemoUI
@@ -72,6 +69,11 @@ or, as an [InputProcessor](http://libgdx.badlogicgames.com/nightlies/docs/api/co
 Gdx.input.setInputProcessor(new KeyflectionInputProcessor(new ShortcutActions()));
 ```
 
+#### Obtaining currently bound commands
+
+```java
+CommandManager.instance.getCommands()
+```
 
 ## Demo
 There is a [demo](https://github.com/junkdog/keyflection-gdx/blob/master/keyflection-demo/src/net/onedaybeard/keyflection/demo/DemoUI.java)
