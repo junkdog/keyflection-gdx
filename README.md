@@ -69,7 +69,7 @@ or, as an [InputProcessor](http://libgdx.badlogicgames.com/nightlies/docs/api/co
 Gdx.input.setInputProcessor(new KeyflectionInputProcessor(new ShortcutActions()));
 ```
 
-#### Obtaining currently bound commands
+#### Obtaining currently bound commands:
 
 ```java
 CommandManager.instance.getCommands()
