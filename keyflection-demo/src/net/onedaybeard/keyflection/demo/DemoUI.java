@@ -160,7 +160,7 @@ public class DemoUI implements ApplicationListener
 		ui.addActor(rotate);
 		ui.addActor(scale);
 
-		hint = new Label("See console output for shortcuts (hint: s, r, b, Shift-r, h, ESC).", new Label.LabelStyle(font, Color.WHITE));
+		hint = new Label("Press F1 to see keyboard shortcuts.", new Label.LabelStyle(font, Color.WHITE));
 		hint.setPosition(10, 45);
 		hint.setColor(0, 1, 0, 1);
 		ui.addActor(hint);
@@ -372,7 +372,10 @@ public class DemoUI implements ApplicationListener
 		public void toggleHelp()
 		{
 			if (overlay == null)
+			{
 				overlay = new CommandOverlay().createOverlay();
+				overlay.setX(ui.getWidth() - overlay.getWidth());
+			}
 			
 			if (overlay.hasParent())
 				overlay.remove();
