@@ -35,6 +35,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
@@ -72,6 +73,8 @@ public class DemoUI implements ApplicationListener
 	private Color background;
 	private boolean drawHud = true;
 	private StageKeys stageActions;
+	
+	private Table overlay;
 
 	public static void main(String[] args)
 	{
@@ -362,6 +365,20 @@ public class DemoUI implements ApplicationListener
 			{
 				Gdx.app.exit();
 			}
+		}
+		
+		@Command(name = "toggle help", description = "show/hide shortcut keys overview", bindings =
+			@Shortcut(Keys.F1))
+		public void toggleHelp()
+		{
+			if (overlay == null)
+				overlay = new CommandOverlay().createOverlay();
+			
+			if (overlay.hasParent())
+				overlay.remove();
+			else
+				ui.addActor(overlay);
+				
 		}
 	}
 }
