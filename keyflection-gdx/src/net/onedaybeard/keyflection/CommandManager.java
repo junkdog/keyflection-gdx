@@ -16,6 +16,7 @@
 package net.onedaybeard.keyflection;
 
 import java.lang.reflect.Method;
+import java.util.Iterator;
 
 import com.badlogic.gdx.utils.Array;
 
@@ -33,11 +34,22 @@ public enum CommandManager
 		commands = new Array<BoundCommand>();
 	}
 	
-	void addCommand(Method method)
+	void addCommand(Method method, Object instance)
 	{
-		commands.add(new BoundCommand(method));
+		commands.add(new BoundCommand(method, instance));
 	}
-
+	
+	public void unloadCommandsFor(CommandController instance)
+	{
+		Iterator<BoundCommand> iterator = commands.iterator();
+		while (iterator.hasNext())
+		{
+			BoundCommand command = iterator.next();
+			if (command.getCommandInstance() == instance)
+				iterator.remove();
+		}
+	}
+	
 	public Array<BoundCommand> getCommands()
 	{
 		return commands;

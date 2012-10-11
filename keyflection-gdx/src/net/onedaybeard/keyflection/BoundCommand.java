@@ -30,22 +30,29 @@ public class BoundCommand
 {
 	private final Command command;
 	private final Method method;
+	private final Object instance;
 	
 	private final LongArray shortcuts;
 	
-	BoundCommand(Method method)
+	BoundCommand(Method method, Object instance)
 	{
 		if (!method.isAnnotationPresent(Command.class))
 			throw new RuntimeException("No @Command on " + method.getName());
 		
 		command = method.getAnnotation(Command.class);
 		this.method = method;
+		this.instance = instance;
 		
 		shortcuts = new LongArray();
 		for (Shortcut shortcut : command.bindings())
 		{
 			shortcuts.add(KeyPacker.pack(shortcut.value()));
 		}
+	}
+	
+	public Object getCommandInstance()
+	{
+		return instance;
 	}
 
 	public String getName()

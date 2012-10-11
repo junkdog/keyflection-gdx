@@ -38,7 +38,7 @@ final class ShortcutConfigurator
 				continue;
 			
 			assignKeyToMethod(shortcutToMethodMap, method);
-			CommandManager.instance.addCommand(method);
+			CommandManager.instance.addCommand(method, controller);
 		}
 		
 		return shortcutToMethodMap;
