@@ -50,6 +50,17 @@ public enum CommandManager
 		}
 	}
 	
+	public void unloadCommandsFor(Class<? extends CommandController> klazz)
+	{
+		Iterator<BoundCommand> iterator = commands.iterator();
+		while (iterator.hasNext())
+		{
+			BoundCommand command = iterator.next();
+			if (command.getCommandInstance().getClass() == klazz)
+				iterator.remove();
+		}
+	}
+	
 	public Array<BoundCommand> getCommands()
 	{
 		return commands;
