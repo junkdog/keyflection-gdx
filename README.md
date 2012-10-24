@@ -48,7 +48,7 @@ public class DemoUI
     }
 }
 ```
-#### 2: Wrap it inside an KeyflectionInputListener:
+#### 2: Wrap it inside a KeyflectionInputListener:
 
 ```java
 public class DemoUI
