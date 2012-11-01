@@ -38,7 +38,7 @@ final class ShortcutConfigurator
 				continue;
 			
 			assignKeyToMethod(shortcutToMethodMap, method);
-			CommandManager.instance.addCommand(method, controller);
+				CommandManager.instance.addCommand(method, controller);
 		}
 		
 		return shortcutToMethodMap;
@@ -51,7 +51,8 @@ final class ShortcutConfigurator
 		Command command = method.getAnnotation(Command.class);
 		for (Shortcut shortcut : command.bindings())
 		{
-			System.out.printf("Adding shortcut for command '%s': '%s'\n", command.name(), formatter.parse(shortcut.value()));
+			if (CommandManager.instance.debug)
+				System.out.printf("Adding shortcut for command '%s': '%s'\n", command.name(), formatter.parse(shortcut.value()));
 			shortcutToMethodMap.put(KeyPacker.pack(shortcut.value()), method);
 		}
 	}

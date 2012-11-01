@@ -29,6 +29,8 @@ public enum CommandManager
 	
 	private final Array<BoundCommand> commands;
 	
+	public boolean debug = false;
+	
 	private CommandManager()
 	{
 		commands = new Array<BoundCommand>();
