@@ -83,15 +83,25 @@ public class KeyFormatter
 		StringBuilder sb = new StringBuilder();
 		for (String s : meta)
 		{
-			sb.append(s).append(' ');
+			sb.append(toSentenceCase(s)).append('+');
 		}
 		
 		for (String s : keys)
 		{
-			sb.append(s).append(' ');
+			sb.append(toSentenceCase(s)).append('+');
 		}
 		
 		sb.setLength(sb.length() - 1);
 		return sb.toString();
+	}
+	
+	private static String toSentenceCase(String input)
+	{
+		if (input.length() == 1)
+			return input;
+		
+		String s = input.replace('_', ' ');
+		s = s.substring(0, 1) + s.substring(1).toLowerCase();
+		return s;
 	}
 }

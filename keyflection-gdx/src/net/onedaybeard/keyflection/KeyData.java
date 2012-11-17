@@ -36,31 +36,32 @@ final class KeyData
 	
 	boolean keyDown(int keycode)
 	{
-		pressedKeys.add(keycode);
-		long keyCombination = KeyPacker.pack(pressedKeys.toArray());
-		boolean consumed = shortcuts.containsKey(keyCombination);
-		
-		if (consumed)
+		boolean consumed = false;
+		try
 		{
-			try
-			{
-				shortcuts.get(keyCombination).invoke(controller);
-			}
-			catch (IllegalArgumentException e)
-			{
-				throw new RuntimeException(e);
-			}
-			catch (IllegalAccessException e)
-			{
-				throw new RuntimeException(
-					"Is the CommandController's visibility too restrictive?", e);
-			}
-			catch (InvocationTargetException e)
-			{
-				throw new RuntimeException(e);
-			}
-		}
+			pressedKeys.add(keycode);
+			long keyCombination = KeyPacker.pack(pressedKeys.toArray());
+			consumed = shortcuts.containsKey(keyCombination);
 		
+			if (consumed)
+				shortcuts.get(keyCombination).invoke(controller);
+		}
+		catch (IllegalArgumentException e)
+		{
+			System.err.println("Clearing keys - might help");
+			pressedKeys.clear();
+			
+			e.printStackTrace();
+		}
+		catch (IllegalAccessException e)
+		{
+			throw new RuntimeException(
+				"Is the CommandController's visibility too restrictive?", e);
+		}
+		catch (InvocationTargetException e)
+		{
+			throw new RuntimeException(e);
+		}
 		return consumed;
 	}
 	
