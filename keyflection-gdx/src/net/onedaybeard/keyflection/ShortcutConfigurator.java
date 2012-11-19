@@ -16,6 +16,8 @@
 package net.onedaybeard.keyflection;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import com.badlogic.gdx.utils.LongMap;
 
@@ -32,7 +34,18 @@ final class ShortcutConfigurator
 	static LongMap<Method> create(CommandController controller)
 	{
 		LongMap<Method> shortcutToMethodMap = new LongMap<Method>();
-		for (Method method : controller.getClass().getMethods())
+		
+		Method[] methods = controller.getClass().getDeclaredMethods();
+		Arrays.sort(methods, new Comparator<Method>()
+		{
+			@Override
+			public int compare(Method o1, Method o2)
+			{
+				return o1.getName().compareTo(o2.getName());
+			}
+		});
+		
+		for (Method method : methods)
 		{
 			if (!method.isAnnotationPresent(Command.class))
 				continue;
@@ -53,6 +66,7 @@ final class ShortcutConfigurator
 		{
 			if (CommandManager.instance.debug)
 				System.out.printf("Adding shortcut for command '%s': '%s'\n", command.name(), formatter.parse(shortcut.value()));
+			
 			shortcutToMethodMap.put(KeyPacker.pack(shortcut.value()), method);
 		}
 	}
