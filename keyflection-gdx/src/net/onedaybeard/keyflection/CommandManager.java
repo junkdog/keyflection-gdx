@@ -41,7 +41,7 @@ public enum CommandManager
 		commands.add(new BoundCommand(method, instance));
 	}
 	
-	public void unloadCommandsFor(CommandController instance)
+	public void remove(CommandController instance)
 	{
 		Iterator<BoundCommand> iterator = commands.iterator();
 		while (iterator.hasNext())
@@ -52,7 +52,7 @@ public enum CommandManager
 		}
 	}
 	
-	public void unloadCommandsFor(Class<? extends CommandController> klazz)
+	public void remove(Class<? extends CommandController> klazz)
 	{
 		Iterator<BoundCommand> iterator = commands.iterator();
 		while (iterator.hasNext())
@@ -61,6 +61,11 @@ public enum CommandManager
 			if (command.getCommandInstance().getClass() == klazz)
 				iterator.remove();
 		}
+	}
+	
+	public void removeAll()
+	{
+		commands.clear();
 	}
 	
 	public Array<BoundCommand> getCommands()
