@@ -80,11 +80,14 @@ public class KeyFormatter
 		}
 	}
 	
-	private static String format(Array<String> meta, Array<String> keys)
+	private static String format(Array<String> modifier, Array<String> keys)
 	{
 		StringBuilder sb = new StringBuilder();
-		for (String s : meta)
+		for (String s : modifier)
 		{
+			if (KeyData.modfierKeyEquality)
+				s = s.replace("_LEFT", "").replace("_RIGHT", "");
+			
 			sb.append(toSentenceCase(s)).append('+');
 		}
 		
