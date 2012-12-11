@@ -26,15 +26,17 @@ import com.badlogic.gdx.utils.Array;
  */
 public class KeyFormatter
 {
-	private static final int[] META_KEYS = {Keys.SHIFT_LEFT, Keys.SHIFT_RIGHT, Keys.ALT_LEFT, Keys.ALT_RIGHT,
-		Keys.CONTROL_LEFT};
+	private static final int[] MODIFIER_KEYS = {
+		Keys.SHIFT_LEFT, Keys.SHIFT_RIGHT, 
+		Keys.ALT_LEFT, Keys.ALT_RIGHT,
+		Keys.CONTROL_LEFT, Keys.CONTROL_RIGHT};
 	
 	private Field[] keyFields;
 
 	public KeyFormatter()
 	{
 		keyFields = Keys.class.getFields();
-		Arrays.sort(META_KEYS);
+		Arrays.sort(MODIFIER_KEYS);
 	}
 
 	public String parse(int[] keycodes)
@@ -44,15 +46,15 @@ public class KeyFormatter
 	
 	public String parse(long keycodes)
 	{
-		Array<String> metaKeys = new Array<String>(8);
+		Array<String> modifierKeys = new Array<String>(8);
 		Array<String> keys = new Array<String>();
 		
 		int[] leKeys = KeyPacker.unpack(keycodes);
 		for (int key : leKeys)
 		{
-			formatKey(key, (Arrays.binarySearch(META_KEYS, key) > - 1 ? metaKeys : keys));
+			formatKey(key, (Arrays.binarySearch(MODIFIER_KEYS, key) > - 1 ? modifierKeys : keys));
 		}
-		return format(metaKeys, keys);
+		return format(modifierKeys, keys);
 	}
 	
 	private void formatKey(int keycode, Array<String> into)

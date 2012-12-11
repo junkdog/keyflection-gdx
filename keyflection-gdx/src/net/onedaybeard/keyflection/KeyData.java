@@ -18,6 +18,7 @@ package net.onedaybeard.keyflection;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.LongMap;
 
@@ -27,6 +28,8 @@ final class KeyData
 	private final LongMap<Method> shortcuts;
 	private final CommandController controller;
 
+	static boolean modfierKeyEquality;
+	
 	KeyData(CommandController controller)
 	{
 		pressedKeys = new IntArray(false, 7);
@@ -36,6 +39,9 @@ final class KeyData
 	
 	boolean keyDown(int keycode)
 	{
+		if (modfierKeyEquality)
+			keycode = rightToLeftModifier(keycode);
+		
 		boolean consumed = false;
 		try
 		{
@@ -64,10 +70,31 @@ final class KeyData
 		}
 		return consumed;
 	}
-	
+
 	boolean keyUp(int keycode)
 	{
+		if (modfierKeyEquality)
+			keycode = rightToLeftModifier(keycode);
+		
 		pressedKeys.removeValue(keycode);
 		return false;
+	}
+	
+	private static int rightToLeftModifier(int keycode)
+	{
+		switch (keycode)
+		{
+			case Keys.SHIFT_RIGHT:
+				return Keys.SHIFT_LEFT;
+			
+			case Keys.ALT_RIGHT:
+				return Keys.ALT_LEFT;
+			
+			case Keys.CONTROL_RIGHT:
+				return Keys.CONTROL_LEFT;
+			
+			default:
+				return keycode;
+		}
 	}
 }

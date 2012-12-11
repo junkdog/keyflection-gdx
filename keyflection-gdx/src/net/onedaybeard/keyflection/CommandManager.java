@@ -36,6 +36,18 @@ public enum CommandManager
 		commands = new Array<BoundCommand>();
 	}
 	
+	@SuppressWarnings("static-method")
+	public void setSingleModifierKeys(boolean lrModifierEquality)
+	{
+		KeyData.modfierKeyEquality = lrModifierEquality;
+	}
+	
+	@SuppressWarnings("static-method")
+	public boolean isSingleModifierKeys()
+	{
+		return KeyData.modfierKeyEquality;
+	}
+	
 	void addCommand(Method method, Object instance)
 	{
 		commands.add(new BoundCommand(method, instance));
