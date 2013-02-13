@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.onedaybeard</groupId>
+	<artifactId>keyflection-gdx</artifactId>
+	<version>20130213</version>
+	<packaging>jar</packaging>
+	<name>keyflection-gdx</name>
+	<description>Simple annotation-based API for managing shortcuts for software built with libGDX.</description>
+
+	<properties>
+		<gdx.version>0.9.9-SNAPSHOT</gdx.version>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>gdx-nightlies</id>
+			<url>http://libgdx.badlogicgames.com/nightlies/maven</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.badlogic.gdx</groupId>
+			<artifactId>gdx</artifactId>
+			<version>${gdx.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
