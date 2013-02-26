@@ -72,7 +72,13 @@ Gdx.input.setInputProcessor(new KeyflectionInputProcessor(new ShortcutActions())
 #### Obtaining currently bound commands:
 
 ```java
-CommandManager.instance.getCommands()
+CommandManager.instance.getCommands();
+```
+
+#### Treating left/right modifier key pairs as single key
+
+```java
+CommandManager.instance.setSingleModifierKeys(true);
 ```
 
 ## Demo
