@@ -88,19 +88,23 @@ public class KeyFormatter
 			if (KeyData.modfierKeyEquality)
 				s = s.replace("_LEFT", "").replace("_RIGHT", "");
 
-//			s = sanitizeKeys(s);
 			sb.append(toSentenceCase(s)).append('+');
 		}
 		
 		for (String s : keys)
 		{
-			sb.append(toSentenceCase(s)).append('+');
+			sb.append(toSentenceCase(sanitizeKeys(s))).append('+');
 		}
 		
 		sb.setLength(sb.length() - 1);
 		return sb.toString();
 	}
 	
+	private static String sanitizeKeys(String s)
+	{
+		return s.replace("NUM_", "").replace("DPAD_", "");
+	}
+
 	private static String toSentenceCase(String input)
 	{
 		if (input.length() == 1)
