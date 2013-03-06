@@ -87,7 +87,8 @@ public class KeyFormatter
 		{
 			if (KeyData.modfierKeyEquality)
 				s = s.replace("_LEFT", "").replace("_RIGHT", "");
-			
+
+//			s = sanitizeKeys(s);
 			sb.append(toSentenceCase(s)).append('+');
 		}
 		

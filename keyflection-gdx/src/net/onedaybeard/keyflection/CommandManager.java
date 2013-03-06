@@ -48,7 +48,7 @@ public enum CommandManager
 		return KeyData.modfierKeyEquality;
 	}
 	
-	void addCommand(Method method, Object instance)
+	void addCommand(Method method, CommandController instance)
 	{
 		commands.add(new BoundCommand(method, instance));
 	}

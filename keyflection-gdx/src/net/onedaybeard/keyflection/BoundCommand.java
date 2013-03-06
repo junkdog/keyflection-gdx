@@ -34,7 +34,7 @@ public class BoundCommand
 	
 	private final LongArray shortcuts;
 	
-	BoundCommand(Method method, Object instance)
+	BoundCommand(Method method, CommandController instance)
 	{
 		if (!method.isAnnotationPresent(Command.class))
 			throw new RuntimeException("No @Command on " + method.getName());
