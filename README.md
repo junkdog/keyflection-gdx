@@ -8,6 +8,7 @@ making keyboard heavy applications - game editors, strategy games and such.
 - Arbitrary number of shortcuts per action.
 - Annotated methods supply default key combinations.
 - Parse shortcuts as strings, aka _"SHIFT C"_.
+- Optionally differentiate between left/right modifier keys.
 
 
 ## TODO
@@ -72,7 +73,13 @@ Gdx.input.setInputProcessor(new KeyflectionInputProcessor(new ShortcutActions())
 #### Obtaining currently bound commands:
 
 ```java
-CommandManager.instance.getCommands()
+CommandManager.instance.getCommands();
+```
+
+#### Treating left/right modifier key pairs as single key
+
+```java
+CommandManager.instance.setSingleModifierKeys(true);
 ```
 
 ## Demo
