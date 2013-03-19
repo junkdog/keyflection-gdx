@@ -15,13 +15,14 @@
  */
 package net.onedaybeard.keyflection;
 
+import java.lang.reflect.Method;
+import java.util.Comparator;
+
 /**
  * Class should have at least have protected visibility - public for methods.
  */
 public interface CommandController
 {
-	public static enum Sorting {METHOD_NAME, COMMAND_NAME, SHORTCUTS, UNORDERED}
-	
 	String groupName();
-	Sorting commandOrder();
+	Comparator<Method> commandComparator();
 }

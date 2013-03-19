@@ -16,10 +16,7 @@
 package net.onedaybeard.keyflection;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Comparator;
 
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.LongMap;
 
@@ -44,56 +41,13 @@ final class ShortcutConfigurator
 				methods.add(method);
 		}
 		
-		sort(methods, controller);
+		if (controller.commandComparator() != null)
+			methods.sort(controller.commandComparator());
 		
 		for (Method method : methods)
 		{
 			assignKeyToMethod(shortcutToMethodMap, method);
 				CommandManager.instance.addCommand(method, controller);
-		}
-		
-		return shortcutToMethodMap;
-	}
-	
-	private static void sort(Array<Method> methods, CommandController controller)
-	{
-		switch (controller.commandOrder())
-		{
-			case COMMAND_NAME:
-				methods.sort(new CommandNameComparator());
-				break;
-			case METHOD_NAME:
-				methods.sort(new MethodNameComparator());
-				break;
-			case SHORTCUTS:
-				methods.sort(new ShortcutComparator());
-				break;
-			default:
-				break;
-		}
-	}
-
-	static LongMap<Method> createOld(CommandController controller)
-	{
-		LongMap<Method> shortcutToMethodMap = new LongMap<Method>();
-		
-		Method[] methods = controller.getClass().getDeclaredMethods();
-		Arrays.sort(methods, new Comparator<Method>()
-			{
-			@Override
-			public int compare(Method o1, Method o2)
-			{
-				return o1.getName().compareTo(o2.getName());
-			}
-			});
-		
-		for (Method method : methods)
-		{
-			if (!method.isAnnotationPresent(Command.class))
-				continue;
-			
-			assignKeyToMethod(shortcutToMethodMap, method);
-			CommandManager.instance.addCommand(method, controller);
 		}
 		
 		return shortcutToMethodMap;
@@ -110,72 +64,6 @@ final class ShortcutConfigurator
 				System.out.printf("Adding shortcut for command '%s': '%s'\n", command.name(), formatter.parse(shortcut.value()));
 			
 			shortcutToMethodMap.put(KeyPacker.pack(shortcut.value()), method);
-		}
-	}
-	
-	private static final class MethodNameComparator implements Comparator<Method>
-	{
-		@Override
-		public int compare(Method o1, Method o2)
-		{
-			return o1.getName().compareTo(o2.getName());
-		}
-	}
-	
-	private static final class CommandNameComparator implements Comparator<Method>
-	{
-		@Override
-		public int compare(Method o1, Method o2)
-		{
-			return getName(o1).compareTo(getName(o2));
-		}
-		
-		private static String getName(Method m)
-		{
-			return m.getAnnotation(Command.class).name();
-		}
-	}
-	
-	private static final class ShortcutComparator implements Comparator<Method>
-	{
-		// TODO: refactor
-		private static final int[] MODIFIER_KEYS = {
-			Keys.SHIFT_LEFT, Keys.SHIFT_RIGHT, 
-			Keys.ALT_LEFT, Keys.ALT_RIGHT,
-			Keys.CONTROL_LEFT, Keys.CONTROL_RIGHT};
-		
-		@Override
-		public int compare(Method o1, Method o2)
-		{
-			return getShortcutValue(o1) - getShortcutValue(o2);
-		}
-		
-		public static int getShortcutValue(Method m)
-		{
-			Shortcut shortcut = m.getAnnotation(Command.class).bindings()[0];
-			
-			int keys[] = KeyPacker.unpack(KeyPacker.pack(shortcut.value()));
-			int value = 0;
-			for (int key : keys)
-			{
-				if (isModifier(key))
-					continue;
-				
-				value = key;
-				break;
-			}
-			return value;
-		}
-		
-		private static boolean isModifier(int keyValue)
-		{
-			for (int key : MODIFIER_KEYS)
-			{
-				if (key == keyValue)
-					return true;
-			}
-			
-			return false;
 		}
 	}
 }

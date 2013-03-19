@@ -19,7 +19,7 @@ import java.util.Arrays;
 
 import com.badlogic.gdx.utils.IntArray;
 
-final class KeyPacker
+public final class KeyPacker
 {
 	private static final int DATA_BYTES = Long.SIZE / 8;
 
@@ -30,7 +30,7 @@ final class KeyPacker
 		
 	}
 
-	static long pack(int[] keys)
+	public static long pack(int[] keys)
 	{
 		if (keys.length > (DATA_BYTES - 1)) // 8th byte reserved for mouse/touch
 			throw new IllegalArgumentException("Maximum length of key array is 7, found " + keys.length);
@@ -47,7 +47,7 @@ final class KeyPacker
 		return packed;
 	}
 	
-	static int[] unpack(long keys)
+	public static int[] unpack(long keys)
 	{
 		unpacked.clear();
 		for (int i = 0; DATA_BYTES > i; i++)
