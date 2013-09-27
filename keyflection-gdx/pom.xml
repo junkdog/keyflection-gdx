@@ -13,30 +13,22 @@
 		<github.global.server>github</github.global.server>
 	</properties>
 	
+	<repositories>
+		<repository>
+			<id>gdx-nightlies</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</repository>
+	</repositories>
+	
 	<scm>
 		<url>https://github.com/junkdog/keyflection-gdx/</url>
 		<connection>scm:git:git@github.com:junkdog/keyflection-gdx.git</connection>
 		<developerConnection>scm:git:git@github.com:junkdog/keyflection-gdx.git</developerConnection>
 	</scm>
 	
-	<distributionManagement>
-		<repository>
-			<id>internal.repo</id>
-			<name>Temporary Staging Repository</name>
-			<url>file://${project.build.directory}/mvn-repo</url>
-		</repository>
-	</distributionManagement>
-
-	<repositories>
-		<repository>
-			<id>gdx-nightlies</id>
-			<url>http://libgdx.badlogicgames.com/nightlies/maven</url>
-		</repository>
-	</repositories>
-
 	<dependencies>
 		<dependency>
-			<groupId>com.badlogic.gdx</groupId>
+			<groupId>com.badlogicgames.gdx</groupId>
 			<artifactId>gdx</artifactId>
 			<version>${gdx.version}</version>
 			<scope>provided</scope>
