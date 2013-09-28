@@ -4,7 +4,7 @@
 	<groupId>net.onedaybeard</groupId>
 	<artifactId>keyflection-gdx</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 	<name>keyflection-gdx-parent</name>
 	<description>Simple annotation-based API for managing shortcuts for software built with libGDX.</description>
 
