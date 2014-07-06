@@ -9,7 +9,7 @@
 	<description>Simple annotation-based API for managing shortcuts for software built with libGDX.</description>
 
 	<properties>
-		<gdx.version>0.9.9-SNAPSHOT</gdx.version>
+		<gdx.version>1.2.0</gdx.version>
 		<github.global.server>github</github.global.server>
 	</properties>
 	
